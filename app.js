@@ -92,4 +92,6 @@ function META_ENCODE(data) {
     return encoded_output, nodes[0];
 }
 
-META_ENCODE("AAAAAAAAAAABBBBBCCC");
+if (require.main === module) {
+    META_ENCODE("AAAAAAAAAAABBBBBCCC");
+}
