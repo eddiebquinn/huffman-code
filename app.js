@@ -50,13 +50,7 @@ function encode(input, coding) {
     return return_str;
 }
 
-function META_ENCODE(data) {
-    symbol_probs = calc_prob(data);
-    symbols = Object.keys(symbol_probs);
-    probs = Object.values(symbol_probs);
-    console.log("symbols:" + symbols);
-    console.log("probabilities:" + [probs]);
-
+function build_tree() {
     let nodes = []
 
     for (let s of symbols) {
@@ -84,7 +78,16 @@ function META_ENCODE(data) {
         // Add new node to list
         nodes.push(NewNode);
     }
+    return nodes;
+}
 
+function META_ENCODE(data) {
+    symbol_probs = calc_prob(data);
+    symbols = Object.keys(symbol_probs);
+    probs = Object.values(symbol_probs);
+    console.log("symbols:" + symbols);
+    console.log("probabilities:" + [probs]);
+    nodes = build_tree();
     let huffman_encoding = calc_codes(nodes[0]);
     console.log(huffman_encoding);
     let encoded_output = encode(data, huffman_encoding);
