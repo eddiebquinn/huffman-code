@@ -15,8 +15,8 @@ function Tree(data) {
 
     this.encode = function encode() {
         let output_array = []
-        for (let i = 0; i < this.data.length; i++)
-            output_array.push(this.codes[this.data[i]])
+        for (let i of data)
+            output_array.push(this.codes[i])
         return output_array.join("");
     }
 }
@@ -24,11 +24,11 @@ function Tree(data) {
 function calc_prob(str) {
     let symbols = {};
 
-    for (let i = 0; i < str.length; i++) {
-        if (!(str[i] in symbols))
-            symbols[str[i]] = 1;
+    for (let i of str) {
+        if (!(i in symbols))
+            symbols[i] = 1;
         else
-            symbols[str[i]] += 1;
+            symbols[i] += 1;
     }
 
     return symbols;
