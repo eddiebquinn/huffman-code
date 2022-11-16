@@ -7,6 +7,12 @@ function Node(prob, symbol, left = null, right = null) {
     this.code = '';
 }
 
+function Tree(data) {
+    this.probs = calc_prob(data);
+    this.root = build_tree(this.probs);
+    this.codes = calc_codes(this.root[0]);
+}
+
 function calc_prob(str) {
     let symbols = {};
 
@@ -50,10 +56,10 @@ function encode(input, coding) {
     return return_str;
 }
 
-function build_tree() {
+function build_tree(symbol_probs) {
     let nodes = []
 
-    for (let s of symbols) {
+    for (let s of Object.keys(symbol_probs)) {
         nodes.push(new Node(symbol_probs[s], s));
     }
 
@@ -82,17 +88,12 @@ function build_tree() {
 }
 
 function META_ENCODE(data) {
-    symbol_probs = calc_prob(data);
-    symbols = Object.keys(symbol_probs);
-    probs = Object.values(symbol_probs);
-    console.log("symbols:" + symbols);
-    console.log("probabilities:" + [probs]);
-    nodes = build_tree();
-    let huffman_encoding = calc_codes(nodes[0]);
-    console.log(huffman_encoding);
-    let encoded_output = encode(data, huffman_encoding);
+    let HuffTree = new Tree(data);
+    console.log("Symbol Probs: " + HuffTree.probs)
+    console.log("Symbol Codes: " + HuffTree.codes);
+    let encoded_output = encode(data, HuffTree.codes);
     console.log("Encoded output: " + encoded_output);
-    return encoded_output, nodes[0];
+    return encoded_output, HuffTree.root[0];
 }
 
 META_ENCODE("AAAAAAAAAAABBBBBCCC");
