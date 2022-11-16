@@ -10,7 +10,7 @@ function Node(prob, symbol, left = null, right = null) {
 function Tree(data) {
     this.probs = calc_prob(data);
     this.root = build_tree(this.probs);
-    this.codes = calc_codes(this.root[0]);
+    this.codes = calc_codes(this.root);
 }
 
 function calc_prob(str) {
@@ -84,7 +84,7 @@ function build_tree(symbol_probs) {
         // Add new node to list
         nodes.push(NewNode);
     }
-    return nodes;
+    return nodes[0];
 }
 
 function META_ENCODE(data) {
@@ -93,7 +93,7 @@ function META_ENCODE(data) {
     console.log("Symbol Codes: " + HuffTree.codes);
     let encoded_output = encode(data, HuffTree.codes);
     console.log("Encoded output: " + encoded_output);
-    return encoded_output, HuffTree.root[0];
+    return encoded_output, HuffTree.root;
 }
 
 META_ENCODE("AAAAAAAAAAABBBBBCCC");
