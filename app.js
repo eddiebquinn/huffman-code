@@ -17,12 +17,10 @@ function calc_prob(str) {
     let symbols = {};
 
     for (let i = 0; i < str.length; i++) {
-        if (!(str[i] in symbols)) {
+        if (!(str[i] in symbols))
             symbols[str[i]] = 1;
-        }
-        else {
+        else
             symbols[str[i]] += 1;
-        }
     }
 
     return symbols;
@@ -32,26 +30,20 @@ let codes = {}
 function calc_codes(node, val = '') {
     let nVal = val + node.code;
 
-    if (node.left !== null) {
+    if (node.left !== null)
         calc_codes(node.left, nVal);
-    }
-    if (node.right !== null) {
+    if (node.right !== null)
         calc_codes(node.right, nVal)
-    }
-
-    if (node.left === null && node.right === null) {
+    if (node.left === null && node.right === null)
         codes[node.symbol] = nVal
-    }
     return codes
 }
 
 function encode(input, coding) {
     let output_array = []
 
-    for (let i = 0; i < input.length; i++) {
-        console.log(coding[input[i]])
+    for (let i = 0; i < input.length; i++)
         output_array.push(coding[input[i]])
-    }
     let return_str = output_array.join("");
     return return_str;
 }
@@ -59,9 +51,8 @@ function encode(input, coding) {
 function build_tree(symbol_probs) {
     let nodes = []
 
-    for (let s of Object.keys(symbol_probs)) {
+    for (let s of Object.keys(symbol_probs))
         nodes.push(new Node(symbol_probs[s], s));
-    }
 
     while (nodes.length > 1) {
         // This sorts all the nodes with smallest prob first, may need to switch up however
